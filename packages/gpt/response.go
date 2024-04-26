@@ -20,6 +20,6 @@ type GptResponse struct {
   Created int `json:"created"`
   Model string `json:"Model"`
   Usage Usage `json:"usage"`
-  Choices []Choices `json:"choice"`
+  Choices []Choices `json:"choices"`
 }
 

@@ -37,7 +37,7 @@ func (g *GPT) Query(q string)  {
   
   client:= &http.Client{}
   
-  req,_:= http.NewRequest("POST",g.url,git a)
+  req,_:= http.NewRequest("POST",g.url,bytes.NewReader(body))
   authheader:= fmt.Sprintf("Bearer %v",g.config.ApiKey)
 
   req.Header.Set("Authorization",authheader)
