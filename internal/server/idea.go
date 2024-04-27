@@ -1,0 +1,41 @@
+package server
+
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+)
+
+/* Schema of expexted request */
+
+type request struct {
+	Idea string `json:"idea"`
+}
+
+/* Schema of response */
+type response struct {
+	Message string `json:"message"`
+	Idea    string `json:"idea"`
+}
+
+func sendError(message string) response {
+	return response{message, ""}
+}
+
+func sendSuccess(idea string) response {
+	return response{"Idea processed successfully", idea}
+}
+
+/* Route handler for hadling idea */
+func (s *Server) Idea(c echo.Context) error {
+	var req request
+
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, sendError("Unable to parse json"))
+	}
+
+	processedIdea := "This is a sample processed idea"
+
+	return c.JSON(http.StatusOK, sendSuccess(processedIdea))
+
+}
