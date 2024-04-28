@@ -35,7 +35,7 @@ func (g *OpenAi) SetTemperature(temperature float64) *OpenAi {
 	return g
 }
 
-func (g *OpenAi) Query(messages []Message) (*GptResponse, error) {
+func (g *OpenAi) Query(messages []Message) (*Message, error) {
 
 	body := g.CreateQueryBody(messages)
 
@@ -63,6 +63,6 @@ func (g *OpenAi) Query(messages []Message) (*GptResponse, error) {
 
 		return nil, err
 	}
-	return &response, nil
+	return &response.Choices[0].Message, nil
 
 }

@@ -16,11 +16,11 @@ type QueryBody struct {
 	Temperature float64   `json:"temperature"`
 }
 
-func CreateUserMessageObject(q string) Message {
+func (g *OpenAi) CreateUserMessageObject(q string) Message {
 	return Message{Role: "user", Content: q}
 }
 
-func CreateSystemMessageObject(q string) Message {
+func (g *OpenAi) CreateSystemMessageObject(q string) Message {
 	return Message{Role: "system", Content: q}
 
 }

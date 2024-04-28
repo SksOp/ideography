@@ -1,6 +1,7 @@
 package server
 
 import (
+	"ideography/internal/idea"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -34,7 +35,10 @@ func (s *Server) Idea(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, sendError("Unable to parse json"))
 	}
 
-	processedIdea := "This is a sample processed idea"
+	processedIdea, err := idea.HandleNewIdea(req.Idea)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, sendError("Currently we are unable to process your idea"))
+	}
 
 	return c.JSON(http.StatusOK, sendSuccess(processedIdea))
 
