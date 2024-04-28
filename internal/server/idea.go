@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -21,7 +22,6 @@ type response struct {
 func sendError(message string) response {
 	return response{message, ""}
 }
-
 func sendSuccess(idea string) response {
 	return response{"Idea processed successfully", idea}
 }
@@ -31,7 +31,7 @@ func (s *Server) Idea(c echo.Context) error {
 	var req request
 
 	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, sendError("Unable to parse json"))
+		return c.JSON(http.StatusBadRequest, sendError(fmt.Sprintf("Error: %s", err)))
 	}
 
 	processedIdea := "This is a sample processed idea"
